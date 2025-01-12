@@ -127,7 +127,18 @@ function closePopup(){
 }
 
 function updateData(i){
-alert("sorry u cant update")
+
+  title.value = dataPro[i].title
+  price.value = dataPro[i].price
+  taxes.value = dataPro[i].taxes
+  ads.value = dataPro[i].ads
+  discount.value = dataPro[i].discount
+  count.style.display="none"
+  category.value = dataPro[i].category
+  getTotal()
+  submit.innerHTML = "Update"
+  mood = 'Update'
+  index = i
 }
 
 function checkOutput() {
