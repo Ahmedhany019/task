@@ -9,6 +9,7 @@ let category = document.getElementById("category")
 let submit = document.getElementById("submit")
 let yes = document.getElementsByClassName("yes")
 let no = document.getElementsByClassName("no")
+let deleteAllBtn = document.getElementById("deleteAll")
 
 let mood = "create"
 let index;
@@ -23,7 +24,7 @@ function getTotal(){
     total.innerHTML=""
     total.style.backgroundColor="red"
   }
-
+  checkOutput()
 }
 
 //Create Product
@@ -99,6 +100,7 @@ function showData(){
     </tr>`
   }
   document.getElementById('table').innerHTML = table;
+  checkOutput()
 }
 showData()
 
@@ -125,16 +127,62 @@ function closePopup(){
 }
 
 function updateData(i){
+alert("sorry u cant update")
+}
 
-  title.value = dataPro[i].title
-  price.value = dataPro[i].price
-  taxes.value = dataPro[i].taxes
-  ads.value = dataPro[i].ads
-  discount.value = dataPro[i].discount
-  count.style.display="none"
-  category.value = dataPro[i].category
-  getTotal()
-  submit.innerHTML = "Update"
-  mood = 'Update'
-  tmp = i
+function checkOutput() {
+  if (dataPro.length === 0) {
+    deleteAllBtn.style.display = "none";
+  } else {
+    deleteAllBtn.style.display = "block";
+  }
+}
+function deleteAll(){
+
+  localStorage.clear()
+  dataPro.splice(0)
+  showData()
+}
+
+let searchMood = "title"
+
+function getSearch(id){
+  let search = document.getElementById("search");
+  if(id=="searchByTitle"){
+    searchMood = "title";
+    search.placeholder = "search By Title";
+  }else{
+    searchMood = "category";
+    search.placeholder = "search By category";
+  }
+  search.focus()
+}
+
+
+function searchData(value) {
+  let table = "";
+  
+  for (let i = 0; i < dataPro.length; i++) {
+    if (
+      (searchMood === "title" && dataPro[i].title.toLowerCase().includes(value.toLowerCase())) ||
+      (searchMood === "category" && dataPro[i].category.toLowerCase().includes(value.toLowerCase()))
+    ) {
+      table += `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${dataPro[i].title}</td>
+          <td>${dataPro[i].price}</td>
+          <td>${dataPro[i].taxes}</td>
+          <td>${dataPro[i].ads}</td>
+          <td>${dataPro[i].discount}</td>
+          <td>${dataPro[i].total}</td>
+          <td>${dataPro[i].category}</td>
+          <td><button id="update" onclick="updateData(${i})">update</button></td>
+          <td><button id="delete" onclick="delEl(${i})">delete</button></td>
+        </tr>
+      `;
+    }
+  }
+
+  document.getElementById("table").innerHTML = table;
 }

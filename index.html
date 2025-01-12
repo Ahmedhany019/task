@@ -41,12 +41,13 @@
 
         <div class="output">
             <div class="searchBlocked">
-                <input type="text" id="search" placeholder="Search">
+                <input type="text" id="search" placeholder="Search" onkeyup="searchData(this.value)">
                 <div class="buttonsearch">
-                    <button id="searchByTitle">Search By Title</button>
-                    <button id="searchByCategory">Search By Category</button>
+                    <button id="searchByTitle" onclick="getSearch(this.id)">Search By Title</button>
+                    <button id="searchByCategory" onclick="getSearch(this.id)">Search By Category</button>
                 </div>
             </div>
+            <button id="deleteAll" onclick="deleteAll()">deleteAll</button>
             <table>
                 <tr>
                     <th>id</th>

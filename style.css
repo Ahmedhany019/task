@@ -70,6 +70,7 @@ th,td{
     padding: 5px;
 }
 #deleteAll{
+    display: none;
     margin: 10px 0;
 }
 #popup{
